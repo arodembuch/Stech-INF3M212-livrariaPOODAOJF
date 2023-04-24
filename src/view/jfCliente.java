@@ -6,6 +6,10 @@
 package view;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+import services.ClienteServicos;
+import services.ServicosFactory;
 import util.Validadores;
 
 /**
@@ -19,6 +23,39 @@ public class jfCliente extends javax.swing.JFrame {
      */
     public jfCliente() {
         initComponents();
+        addRowToTable();
+    }
+
+    public void validaImputs() {
+        if (jtfNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher nome!");
+            jtfNome.requestFocus();
+        } else if (jtfCpf.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher cpf!");
+            jtfCpf.requestFocus();
+        } else if (jtfEndereco.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Peencher endereço!");
+            jtfEndereco.requestFocus();
+
+        } else if (jftfTelefone.getValue()==null) {
+            JOptionPane.showMessageDialog(this, "Preencher telefone!");
+            jftfTelefone.requestFocus();
+        }
+    }//fim valida imputs
+     
+    public void addRowToTable(){
+        DefaultTableModel model = (DefaultTableModel) jtClientes.getModel();
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        Object rowData[] = new Object[4];
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+        for (Cliente c : clienteS.getClientes()){
+            rowData[0] = Validadores.imprimeCPF(c.getCpf());
+            rowData[1] = c.getNomeCliente();
+            rowData[2] = c.getTelefone();
+            rowData[3] = c.getEndereco();
+            model.addRow(rowData);
+        }
     }
 
     /**
@@ -74,16 +111,16 @@ public class jfCliente extends javax.swing.JFrame {
         jLabel1.setText("Gerência Cliente");
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Nome:");
+        jLabel2.setText("*Nome:");
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Cpf:");
+        jLabel3.setText("*Cpf:");
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Endereço:");
+        jLabel4.setText("*Endereço:");
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Telefone:");
+        jLabel5.setText("*Telefone:");
 
         jtfEndereco.setToolTipText("Endereço completo");
 
@@ -105,6 +142,11 @@ public class jfCliente extends javax.swing.JFrame {
         });
 
         jtfNome.setToolTipText("Nome");
+        jtfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfNomeActionPerformed(evt);
+            }
+        });
         jtfNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfNomeKeyTyped(evt);
@@ -281,23 +323,28 @@ public class jfCliente extends javax.swing.JFrame {
 
     private void jtfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCpfFocusLost
         // TODO add your handling code here:
-        if (!Validadores.isCPF(jtfCpf.getText())) {
-            JOptionPane.showMessageDialog(this, "Cpf invalido.","Erro Cpf",JOptionPane.ERROR_MESSAGE);
-            jtfCpf.requestFocus();
+        if (!jtfCpf.getText().equals("")) {
 
+            if (!Validadores.isCPF(jtfCpf.getText())) {
+                JOptionPane.showMessageDialog(this, "Cpf invalido.", "Erro Cpf", JOptionPane.ERROR_MESSAGE);
+                jtfCpf.requestFocus();
+
+            }
         }
     }//GEN-LAST:event_jtfCpfFocusLost
 
     private void jtfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeKeyTyped
         // TODO add your handling code here:
         String nletras = "0123456789<>:?'/'~^{][{''=+-_!|@#%&*()§°£¬`´``,.";
-        if(nletras.contains(evt.getKeyChar()+"")){
+        if (nletras.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_jtfNomeKeyTyped
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
+        validaImputs();
+
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
@@ -312,8 +359,8 @@ public class jfCliente extends javax.swing.JFrame {
         jftfTelefone.setText("");
         jtfNome.setText("");
         jtfNome.requestFocus();
-        
-        
+
+
     }//GEN-LAST:event_jbLimparActionPerformed
 
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
@@ -323,6 +370,10 @@ public class jfCliente extends javax.swing.JFrame {
         jbLimpar.setEnabled(false);
         jtfCpf.setEnabled(false);
     }//GEN-LAST:event_jtClientesMouseClicked
+
+    private void jtfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfNomeActionPerformed
 
     /**
      * @param args the command line arguments

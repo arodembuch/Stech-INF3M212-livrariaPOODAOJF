@@ -43,7 +43,7 @@ public class Menu extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setForeground(new java.awt.Color(0, 0, 102));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/download.jpg"))); // NOI18N
@@ -67,7 +67,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setForeground(new java.awt.Color(255, 255, 153));
 
-        jMenu1.setForeground(new java.awt.Color(204, 204, 204));
+        jMenu1.setForeground(new java.awt.Color(0, 0, 0));
         jMenu1.setMnemonic('g');
         jMenu1.setText("Gerenciar");
 
@@ -104,7 +104,7 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jmiVendaLivro.setForeground(new java.awt.Color(204, 204, 204));
+        jmiVendaLivro.setForeground(new java.awt.Color(0, 0, 0));
         jmiVendaLivro.setMnemonic('v');
         jmiVendaLivro.setText("Venda Livro");
         jMenuBar1.add(jmiVendaLivro);
