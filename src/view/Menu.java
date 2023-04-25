@@ -18,6 +18,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -137,10 +138,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
         // TODO add your handling code here:
-       // JOptionPane.showMessageDialog(this, "Cadastrar cliente!");
-       jfCliente janelaCliente = new jfCliente();
-       
-       janelaCliente.setVisible(true);
+        // JOptionPane.showMessageDialog(this, "Cadastrar cliente!");
+        jfCliente janelaCliente = new jfCliente();
+
+        janelaCliente.setVisible(true);
     }//GEN-LAST:event_jmiClienteActionPerformed
 
     /**

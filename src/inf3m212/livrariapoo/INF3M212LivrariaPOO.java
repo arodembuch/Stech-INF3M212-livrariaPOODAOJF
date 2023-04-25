@@ -166,6 +166,7 @@ public class INF3M212LivrariaPOO {
         // TODO code application logic here
         Menu jfMenu = new Menu();
         jfMenu.setVisible(true);
+        
         /*
         cadCliente.mockClientes();
         cadEditora.mockEditoras();
