@@ -43,7 +43,7 @@ public class jfCliente extends javax.swing.JFrame {
             jtfEndereco.requestFocus();
             return false;
 
-        } else if (jftfTelefone.getValue() == null) {
+        } else if (jftfTelefone.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencher telefone!");
             jftfTelefone.requestFocus();
             return false;
@@ -132,6 +132,11 @@ public class jfCliente extends javax.swing.JFrame {
         jLabel5.setText("*Telefone:");
 
         jtfEndereco.setToolTipText("Endereço completo");
+        jtfEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfEnderecoActionPerformed(evt);
+            }
+        });
 
         jtfCpf.setToolTipText("Informe somente numeros");
         jtfCpf.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -168,6 +173,11 @@ public class jfCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jftfTelefone.setToolTipText("Informe somente numero");
+        jftfTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jftfTelefoneActionPerformed(evt);
+            }
+        });
 
         jbSalvar.setText("Salvar");
         jbSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -373,14 +383,21 @@ public class jfCliente extends javax.swing.JFrame {
         if (validaImputs()) {
             //pegar dados da tabela para salvar
             int idCliente = 0;
-            String nomeCliente = jtfNome.getText();
+            String nomeCliente = jtfNome.getText().toUpperCase();
             String cpf = jtfCpf.getText();
             String cnpj = null;
-            String endereco = jtfEndereco.getText();
+            String endereco = jtfEndereco.getText().toUpperCase();
             String telefone = jftfTelefone.getText();
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-            
+
             Cliente c = new Cliente(idCliente, nomeCliente, cpf, cnpj, endereco, telefone);
+            if (jbSalvar.getText().equals("Salvar")) {
+                clienteS.cadCliente(c);
+                
+            }else{
+                clienteS.atualizarCliente(c);
+                jbLimpar.doClick();
+            }
             clienteS.cadCliente(c);
             limparCampos();
             addRowToTable();
@@ -434,6 +451,21 @@ public class jfCliente extends javax.swing.JFrame {
         jtfCpf.setEnabled(false);
         jbLimpar.setText("Cancelar");
         jbDeletar.setVisible(false);
+        //Carregar dados da tabela no from
+        int linha;
+        linha = jtClientes.getSelectedRow();
+        String cpf = (String) jtClientes.getValueAt(linha, 0);
+        String nome = (String) jtClientes.getValueAt(linha, 1);
+        String telefone = (String) jtClientes.getValueAt(linha, 2);
+        String endereco = (String) jtClientes.getValueAt(linha, 3);
+
+        jtfCpf.setText(cpf);
+        jtfNome.setText(nome);
+        jtfEndereco.setText(endereco);
+        jftfTelefone.setText(telefone);
+        jtfNome.requestFocus();
+
+
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
@@ -441,21 +473,29 @@ public class jfCliente extends javax.swing.JFrame {
         int linha;
         String cpf;
         linha = jtClientes.getSelectedRow();
-        cpf = (String) jtClientes.getValueAt(linha,1);
+        cpf = (String) jtClientes.getValueAt(linha, 1);
         ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-        Object[] resp = {"Sim","Não"};
-        int resposta = JOptionPane.showOptionDialog(this,"deseja realmente deletar?","Deletar",
-                JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,resp,resp[0]);
-        
-        if (resposta==0) {
+        Object[] resp = {"Sim", "Não"};
+        int resposta = JOptionPane.showOptionDialog(this, "deseja realmente deletar?", "Deletar",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, resp, resp[0]);
+
+        if (resposta == 0) {
             clienteS.deletarCliente(cpf);
             addRowToTable();
-            JOptionPane.showMessageDialog(this,"Cliente deletado com sucesso!");
-        }else{
+            JOptionPane.showMessageDialog(this, "Cliente deletado com sucesso!");
+        } else {
             JOptionPane.showMessageDialog(this, "ox, entendo sua descisão");
-            
+
         }
     }//GEN-LAST:event_jbDeletarActionPerformed
+
+    private void jftfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jftfTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jftfTelefoneActionPerformed
+
+    private void jtfEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfEnderecoActionPerformed
 
     /**
      * @param args the command line arguments

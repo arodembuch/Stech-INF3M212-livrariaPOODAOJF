@@ -133,7 +133,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void jmiEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditoraActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(jMenu1, "Cadastrar editora");
+        jfEditora janelaEditora = new jfEditora();
+
+        janelaEditora.setVisible(true);
     }//GEN-LAST:event_jmiEditoraActionPerformed
 
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed

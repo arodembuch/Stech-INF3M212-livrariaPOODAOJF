@@ -117,7 +117,7 @@ public class ClienteDAO {
         try {
             Connection con = Conexao.getConexao();
 
-            String sql = "update set nome = ?, endereco = ?, telefone = ? "
+            String sql = "update clientes set nome = ?, endereco = ?, telefone = ? "
                     + "where cpf = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, cVO.getNomeCliente());
